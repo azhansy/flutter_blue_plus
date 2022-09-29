@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   FlutterEventChannel* stateChannel = [FlutterEventChannel eventChannelWithName:NAMESPACE @"/state" binaryMessenger:[registrar messenger]];
   FlutterBluePlusPlugin* instance = [[FlutterBluePlusPlugin alloc] init];
   instance.channel = channel;
+  instance.centralManager = [[CBCentralManager alloc] initWithDelegate:instance queue:nil options:@ {CBCentralManagerOptionShowPowerAlertKey : @NO}];
   instance.scannedPeripherals = [NSMutableDictionary new];
   instance.servicesThatNeedDiscovered = [NSMutableArray new];
   instance.characteristicsThatNeedDiscovered = [NSMutableArray new];
@@ -68,9 +69,9 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     result(nil);
     return;
   }
-  if (self.centralManager == nil) {
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-  }
+  // if (self.centralManager == nil) {
+  //   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+  // }
   if ([@"state" isEqualToString:call.method]) {
     FlutterStandardTypedData *data = [self toFlutterData:[self toBluetoothStateProto:self->_centralManager.state]];
     result(data);
