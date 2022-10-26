@@ -168,6 +168,9 @@ class BluetoothCharacteristic {
   String toString() {
     return 'BluetoothCharacteristic{uuid: $uuid, deviceId: $deviceId, serviceUuid: $serviceUuid, secondaryServiceUuid: $secondaryServiceUuid, properties: $properties, descriptors: $descriptors, value: ${_value.value}';
   }
+
+  Stream<void> get readyToSendWriteWithoutResponse =>
+      FlutterBluePlus.instance._methodStream.where((m) => m.method == "ReadyToSendWriteWithoutResponse");
 }
 
 enum CharacteristicWriteType { withResponse, withoutResponse }

@@ -792,6 +792,11 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   }
 }
 
+- (void)peripheralIsReadyToSendWriteWithoutResponse:(CBPeripheral *)peripheral {
+    // todo: provider arguments
+    [_channel invokeMethod:@"ReadyToSendWriteWithoutResponse" arguments:nil];
+}
+
 @end
 
 @implementation FlutterBluePlusStreamHandler
